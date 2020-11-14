@@ -1,6 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
 import styled from 'styled-components';
+import { Nav } from './components/Nav';
+import { Search } from './components/Search';
 
 const StyledButton = styled.button`
 	width: 500px;
@@ -9,24 +9,35 @@ const StyledButton = styled.button`
 
 function App() {
 	return (
-		<div className='App'>
-			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<StyledButton>HELLLO</StyledButton>
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<>
+			<Nav />
+			<StyledWrapper>
+				<StyledContainer>
+					<StyledListing>
+						<Search />
+					</StyledListing>
+				</StyledContainer>
+			</StyledWrapper>
+		</>
 	);
 }
+
+const StyledWrapper = styled.div`
+	width: 100%;
+	box-sizing: border-box;
+`;
+
+const StyledContainer = styled.div`
+	background-color: grey;
+	height: 100vh;
+	padding: 20px;
+	background-color: #ccc;
+`;
+
+const StyledListing = styled.div`
+	padding: 20px;
+	height: 500px;
+	background-color: white;
+`;
 
 export default App;
