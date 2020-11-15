@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Search = ({ onSubmit, onChange, input }) => (
 	<StyledForm onSubmit={onSubmit}>
 		<StyledSearch
-			placeholder='Enter your query'
+			placeholder='Search for movies'
 			type='text'
 			value={input}
 			onChange={onChange}

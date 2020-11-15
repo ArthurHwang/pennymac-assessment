@@ -10,8 +10,7 @@ export const Nav = () => (
 );
 
 const StyledNav = styled.nav`
-	width: 100%;
-	height: 40px;
+	height: 60px;
 	background-color: #003366;
 	padding-left: 50px;
 	display: flex;
@@ -21,7 +20,7 @@ const StyledNav = styled.nav`
 		text-decoration: none;
 		color: white;
 		font-weight: 700;
-		font-size: 18px;
+		font-size: 25px;
 
 		&:visited {
 			color: white;
