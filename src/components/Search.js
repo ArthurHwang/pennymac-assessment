@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Search = ({ onSubmit, onChange, input }) => (
 	<StyledForm onSubmit={onSubmit}>
 		<StyledSearch
-			placeholder='Enter your query'
+			placeholder='Search for movies'
 			type='text'
 			value={input}
 			onChange={onChange}
@@ -17,8 +17,16 @@ const StyledForm = styled.form`
 	grid-template-columns: 2fr 1fr;
 	justify-content: space-around;
 	height: 40px;
-	width: 400px;
+	max-width: 400px;
 	margin: 0 auto;
+
+	@media (max-width: 768px) {
+		grid-template-columns: 90%;
+		grid-template-rows: 1fr 1fr;
+		height: auto;
+		width: 100%;
+		margin: 0 auto;
+	}
 `;
 
 const StyledSearch = styled.input`
@@ -26,6 +34,11 @@ const StyledSearch = styled.input`
 	background-color: #ccc;
 	border: none;
 	border-radius: 5px;
+
+	@media (max-width: 768px) {
+		height: 40px;
+		margin-bottom: 20px;
+	}
 `;
 
 const StyledButton = styled.button`
@@ -38,5 +51,11 @@ const StyledButton = styled.button`
 
 	&:hover {
 		cursor: pointer;
+	}
+
+	@media (max-width: 768px) {
+		height: 40px;
+		margin: 0;
+		justify-self: center;
 	}
 `;

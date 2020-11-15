@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
-import { useState } from 'react';
 import { Movies } from './components/Movies';
+import { NoResult } from './components/NoResult';
+import { useState, Fragment } from 'react';
 
 export const App = () => {
 	const [input, setInput] = useState('');
 	const [movies, setMovies] = useState([]);
+	const [noResult, setNoResult] = useState(false);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -14,15 +16,23 @@ export const App = () => {
 			`https://api.tvmaze.com/search/shows?q=${input}`
 		);
 		const body = await movies.json();
-		setMovies(body);
+		if (body.length) {
+			setMovies(body);
+			setNoResult(false);
+		} else {
+			setMovies([]);
+			setNoResult(true);
+		}
 	};
 
 	const handleChange = e => {
 		setInput(e.target.value);
 	};
 
+	console.log(movies);
+
 	return (
-		<>
+		<Fragment>
 			<Nav />
 			<StyledWrapper>
 				<StyledContainer>
@@ -32,11 +42,11 @@ export const App = () => {
 							onSubmit={handleSubmit}
 							onChange={handleChange}
 						/>
-						<Movies movies={movies} />
+						{noResult ? <NoResult /> : <Movies movies={movies} />}
 					</StyledListing>
 				</StyledContainer>
 			</StyledWrapper>
-		</>
+		</Fragment>
 	);
 };
 
@@ -47,14 +57,14 @@ const StyledWrapper = styled.div`
 
 const StyledContainer = styled.div`
 	background-color: grey;
-	height: 100vh;
+	height: auto;
 	padding: 20px;
 	background-color: #ccc;
 `;
 
 const StyledListing = styled.div`
 	padding: 20px;
-	height: 500px;
+	height: auto;
 	background-color: white;
 `;
 
