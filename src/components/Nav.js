@@ -14,7 +14,6 @@ const StyledNav = styled.nav`
 	height: 40px;
 	background-color: #003366;
 	padding-left: 50px;
-
 	display: flex;
 	align-items: center;
 
