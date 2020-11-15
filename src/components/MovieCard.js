@@ -9,7 +9,7 @@ export const MovieCard = ({ name, image, summary, url }) => {
 	let imageCheck =
 		image === null
 			? 'https://static.thenounproject.com/png/75231-200.png'
-			: image.medium;
+			: image.original;
 
 	return (
 		<StyledCard>
@@ -41,6 +41,11 @@ const StyledCard = styled.div`
 		object-fit: cover;
 		height: 100%;
 		width: 100%;
+	}
+
+	@media (max-width: 768px) {
+		grid-template-columns: initial;
+		grid-template-rows: 200px 1fr;
 	}
 `;
 
