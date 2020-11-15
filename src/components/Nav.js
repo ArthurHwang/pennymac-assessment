@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Nav = () => (
 	<StyledNav>
-		<Router>
-			<Link to='/'>Show Finder</Link>
-		</Router>
+		<Link to='/'>Show Finder</Link>
 	</StyledNav>
 );
 

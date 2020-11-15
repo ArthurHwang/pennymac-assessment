@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const MovieCard = ({ name, image, summary, url }) => {
-	console.log(image);
-
+export const MovieCard = ({ name, image, summary, url, id }) => {
 	// Some API image results return null that break application
 	// Need to check for null and replace with placeholder
 
@@ -13,13 +12,16 @@ export const MovieCard = ({ name, image, summary, url }) => {
 
 	return (
 		<StyledCard>
-			<a href={url} target='_blank'>
-				<img src={imageCheck} title={name} />
+			<a href={url} target='_blank' rel='noreferrer'>
+				<img src={imageCheck} title={name} alt={name} />
 			</a>
 			<StyledDescription>
 				<h2>{name}</h2>
 				<div dangerouslySetInnerHTML={{ __html: summary }}></div>
-				<StyledButton>View Episodes</StyledButton>
+
+				<Link to={`/episodes/${id}`}>
+					<StyledButton>View Episodes</StyledButton>
+				</Link>
 			</StyledDescription>
 		</StyledCard>
 	);
@@ -27,11 +29,10 @@ export const MovieCard = ({ name, image, summary, url }) => {
 
 const StyledCard = styled.div`
 	max-width: 1200px;
-	background-color: #ccc;
+	background-color: #eee;
 	margin: 20px auto;
 	display: grid;
 	grid-template-columns: 0.4fr 1.5fr;
-	border: 2px solid grey;
 
 	a {
 		height: 100%;
@@ -56,6 +57,10 @@ const StyledDescription = styled.div`
 		margin: 20px 0;
 		font-size: 40px;
 		color: #003366;
+	}
+
+	p {
+		color: grey;
 	}
 `;
 
