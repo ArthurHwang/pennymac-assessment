@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-	BrowserRouter as Router,
-	useLocation,
-	useHistory,
-} from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 	let location = useLocation();
 	let history = useHistory();
@@ -59,7 +55,7 @@ const StyledForm = styled.form`
 		grid-template-rows: 1fr 1fr;
 		height: auto;
 		width: 100%;
-		margin: 0 auto;
+		margin: 40px auto;
 	}
 `;
 

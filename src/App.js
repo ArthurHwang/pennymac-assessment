@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { EpisodePage } from './pages/Episodes';
 import { HomePage } from './pages/Home';
 import { Search } from './components/Search';
+import { NoResult } from './components/NoResult';
 import { useState } from 'react';
 
 const App = () => {
@@ -24,7 +25,13 @@ const App = () => {
 					<Route
 						path='/'
 						exact
-						component={() => <HomePage movies={movies} noResult={noResult} />}
+						component={() =>
+							movies.length ? (
+								<HomePage movies={movies} noResult={noResult} />
+							) : (
+								noResult && <NoResult />
+							)
+						}
 					/>
 					<Route path='/episodes/:id' component={EpisodePage} />
 				</Switch>

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-// import { Search } from '../components/Search';
 import { Movies } from '../components/Movies';
 import { NoResult } from '../components/NoResult';
 
 export const HomePage = ({ movies, noResult }) => {
-	console.log(movies);
+	console.log(noResult);
 	return (
 		<StyledWrapper>
 			<StyledContainer>
@@ -24,7 +23,7 @@ const StyledWrapper = styled.div`
 const StyledContainer = styled.div`
 	background-color: grey;
 	height: auto;
-	padding: 20px;
+	padding: 20px 40px;
 	background-color: #ccc;
 `;
 
