@@ -1,26 +1,44 @@
 import styled from 'styled-components';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
+import { useState } from 'react';
+import { Movies } from './components/Movies';
 
-const StyledButton = styled.button`
-	width: 500px;
-	height: 500px;
-`;
+export const App = () => {
+	const [input, setInput] = useState('');
+	const [movies, setMovies] = useState([]);
 
-function App() {
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const movies = await fetch(
+			`https://api.tvmaze.com/search/shows?q=${input}`
+		);
+		const body = await movies.json();
+		setMovies(body);
+	};
+
+	const handleChange = e => {
+		setInput(e.target.value);
+	};
+
 	return (
 		<>
 			<Nav />
 			<StyledWrapper>
 				<StyledContainer>
 					<StyledListing>
-						<Search />
+						<Search
+							value={input}
+							onSubmit={handleSubmit}
+							onChange={handleChange}
+						/>
+						<Movies movies={movies} />
 					</StyledListing>
 				</StyledContainer>
 			</StyledWrapper>
 		</>
 	);
-}
+};
 
 const StyledWrapper = styled.div`
 	width: 100%;

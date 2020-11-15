@@ -1,13 +1,18 @@
-import styled, { isStyledComponent } from 'styled-components';
+import styled from 'styled-components';
 
-export const Search = () => (
-	<StyledContainer>
-		<StyledSearch placeholder='Enter to search' />
-		<StyledButton>Search</StyledButton>
-	</StyledContainer>
+export const Search = ({ onSubmit, onChange, input }) => (
+	<StyledForm onSubmit={onSubmit}>
+		<StyledSearch
+			placeholder='Enter your query'
+			type='text'
+			value={input}
+			onChange={onChange}
+		/>
+		<StyledButton type='submit'>Search</StyledButton>
+	</StyledForm>
 );
 
-const StyledContainer = styled.div`
+const StyledForm = styled.form`
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	justify-content: space-around;
@@ -20,12 +25,13 @@ const StyledSearch = styled.input`
 	padding: 0 10px;
 	background-color: #ccc;
 	border: none;
+	border-radius: 5px;
 `;
 
 const StyledButton = styled.button`
 	width: 100px;
 	margin-left: 20px;
-	border-radius: 10px;
+	border-radius: 5px;
 	background-color: #003366;
 	color: white;
 	border: none;
@@ -34,5 +40,3 @@ const StyledButton = styled.button`
 		cursor: pointer;
 	}
 `;
-
-// const StyledWrapper = styled.div``;
