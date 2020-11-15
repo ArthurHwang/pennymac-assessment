@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-export const MovieCard = ({ name, image, summary, url }) => {
-	console.log(image);
-
+export const MovieCard = ({ name, image, summary, url, id }) => {
 	// Some API image results return null that break application
 	// Need to check for null and replace with placeholder
 
@@ -19,7 +18,10 @@ export const MovieCard = ({ name, image, summary, url }) => {
 			<StyledDescription>
 				<h2>{name}</h2>
 				<div dangerouslySetInnerHTML={{ __html: summary }}></div>
-				<StyledButton>View Episodes</StyledButton>
+
+				<Link to={`/episodes/${id}`}>
+					<StyledButton>View Episodes</StyledButton>
+				</Link>
 			</StyledDescription>
 		</StyledCard>
 	);

@@ -1,16 +1,50 @@
 import styled from 'styled-components';
+import {
+	BrowserRouter as Router,
+	useLocation,
+	useHistory,
+} from 'react-router-dom';
+export const Search = ({ setMovies, setInput, setNoResult, value }) => {
+	let location = useLocation();
+	let history = useHistory();
 
-export const Search = ({ onSubmit, onChange, input }) => (
-	<StyledForm onSubmit={onSubmit}>
-		<StyledSearch
-			placeholder='Search for movies'
-			type='text'
-			value={input}
-			onChange={onChange}
-		/>
-		<StyledButton type='submit'>Search</StyledButton>
-	</StyledForm>
-);
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const movies = await fetch(
+			`https://api.tvmaze.com/search/shows?q=${value}`
+		);
+		const body = await movies.json();
+		if (body.length) {
+			setMovies(body);
+			setNoResult(false);
+		} else {
+			setMovies([]);
+			setNoResult(true);
+		}
+
+		// push route to home if user is on episode page for cleaner rendering if they search multiple times
+		if (location.pathname !== '/') {
+			history.push('/');
+		}
+	};
+
+	const handleChange = e => {
+		setInput(e.target.value);
+	};
+
+	return (
+		<StyledForm onSubmit={handleSubmit}>
+			<StyledSearch
+				placeholder='Search for movies'
+				type='text'
+				value={value}
+				onChange={handleChange}
+			/>
+			<StyledButton type='submit'>Search</StyledButton>
+		</StyledForm>
+	);
+};
+// );
 
 const StyledForm = styled.form`
 	display: grid;
@@ -18,7 +52,7 @@ const StyledForm = styled.form`
 	justify-content: space-around;
 	height: 40px;
 	max-width: 400px;
-	margin: 0 auto;
+	margin: 40px auto;
 
 	@media (max-width: 768px) {
 		grid-template-columns: 90%;

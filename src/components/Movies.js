@@ -12,6 +12,7 @@ export const Movies = ({ movies }) => {
 							image={show.image}
 							summary={show.summary}
 							url={show.url}
+							id={show.id}
 							key={show.id}
 						/>
 					)
