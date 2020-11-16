@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsStarFill } from "react-icons/bs";
+
 export const EpisodeCard = ({ props, listing }) => {
 	return (
 		<StyledEpisode>

@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { Movies } from "../components/Movies";
-import { NoResult } from "../components/NoResult";
 
-export const HomePage = ({ movies, noResult }) => {
+export const HomePage = ({ movies }) => {
 	return (
 		<StyledWrapper>
 			<StyledContainer>
 				<StyledListing>
-					{noResult ? <NoResult /> : <Movies movies={movies} />}
+					<Movies movies={movies} />
 				</StyledListing>
 			</StyledContainer>
 		</StyledWrapper>
