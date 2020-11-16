@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { EpisodeCard } from '../components/EpisodeCard';
-import { useEffect, useState } from 'react';
+import styled from "styled-components";
+import { EpisodeCard } from "../components/EpisodeCard";
+import { useEffect, useState } from "react";
 
-export const EpisodePage = props => {
+export const EpisodePage = (props) => {
 	const [listing, setListing] = useState({});
 	const [episodes, setEpisodes] = useState([]);
 	const [maxSeasons, setMaxSeasons] = useState(0);
@@ -23,7 +23,7 @@ export const EpisodePage = props => {
 			let maximumSeasons = 0;
 
 			// loop through episode HTTP response listing and find maximum number of seasons
-			episodeBody.forEach(episode => {
+			episodeBody.forEach((episode) => {
 				maximumSeasons = Math.max(episode.season);
 			});
 			setMaxSeasons(maximumSeasons);
@@ -31,43 +31,53 @@ export const EpisodePage = props => {
 		fetchData();
 	}, []);
 
-	const handleChange = e => {
+	const handleChange = (e) => {
 		setCurrentSeason(Number(e.target.value));
 	};
-
-	console.log(listing);
 
 	// Some API image results return null that break application
 	// Need to check for null and replace with placeholder
 	const imageCheck = !listing.image
-		? 'https://static.thenounproject.com/png/75231-200.png'
+		? "https://static.thenounproject.com/png/75231-200.png"
 		: listing.image.original;
 
 	return (
 		<StyledEpisodes>
 			<StyledInfo>
-				<img src={imageCheck} />
+				<img src={imageCheck} alt="movie" />
 				<h2>{listing.name}</h2>
-				<div dangerouslySetInnerHTML={{ __html: listing.summary }}></div>
+				<div
+					dangerouslySetInnerHTML={{ __html: listing.summary }}
+				></div>
 				<span>
 					<b>Premiered:</b> {listing.premiered}
 				</span>
 				<br />
 				<span>
-					<b>Genre:</b> {!listing.genres ? '' : listing.genres.join(', ')}
+					<b>Genre:</b>{" "}
+					{!listing.genres ? "" : listing.genres.join(", ")}
 				</span>
 			</StyledInfo>
 
 			<StyledSeasons>
 				<select onChange={handleChange}>
 					{Array.from({ length: maxSeasons }).map((_el, idx) => (
-						<option value={`${idx + 1}`}>{`Season ${idx + 1}`}</option>
+						<option value={`${idx + 1}`}>{`Season ${
+							idx + 1
+						}`}</option>
 					))}
 				</select>
 				<ul>
-					{episodes.map(episode => {
+					{episodes.map((episode) => {
 						if (episode.season === currentSeason) {
-							return <EpisodeCard props={episode} listing={listing} />;
+							return (
+								<EpisodeCard
+									props={episode}
+									listing={listing}
+								/>
+							);
+						} else {
+							return null;
 						}
 					})}
 				</ul>

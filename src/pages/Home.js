@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { Movies } from '../components/Movies';
-import { NoResult } from '../components/NoResult';
+import styled from "styled-components";
+import { Movies } from "../components/Movies";
+import { NoResult } from "../components/NoResult";
 
 export const HomePage = ({ movies, noResult }) => {
-	console.log(noResult);
 	return (
 		<StyledWrapper>
 			<StyledContainer>

@@ -1,21 +1,20 @@
-import styled from 'styled-components';
-import { BsStarFill } from 'react-icons/bs';
+import styled from "styled-components";
+import { BsStarFill } from "react-icons/bs";
 export const EpisodeCard = ({ props, listing }) => {
-	console.log(props);
 	return (
 		<StyledEpisode>
 			<StyledEpisodeNumber>{props.number}</StyledEpisodeNumber>
 			<StyledEpisodeInfo>
-				<StyledLink href={props.url} target='_blank' rel='noreferrer'>
+				<StyledLink href={props.url} target="_blank" rel="noreferrer">
 					<h2>{props.name}</h2>
 					<StyledInfo>
 						<span>
-							<BsStarFill className='star' />
+							<BsStarFill className="star" />
 							{listing.rating.average === null
 								? null
 								: listing.rating.average.toString()}
-						</span>{' '}
-						<span className='divider'>|</span>
+						</span>{" "}
+						<span className="divider">|</span>
 						<span>Airdate: {props.airdate}</span>
 					</StyledInfo>
 				</StyledLink>
