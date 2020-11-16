@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import { useLocation } from 'react-router-dom';
 import { EpisodeCard } from '../components/EpisodeCard';
 import { useEffect, useState } from 'react';
 
