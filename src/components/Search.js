@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useLocation, useHistory } from "react-router-dom";
+
 export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 	let location = useLocation();
 	let history = useHistory();
