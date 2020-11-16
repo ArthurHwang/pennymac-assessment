@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { EpisodeCard } from "../components/EpisodeCard";
 import { useEffect, useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export const EpisodePage = (props) => {
 	const [listing, setListing] = useState({});
 	const [episodes, setEpisodes] = useState([]);
 	const [maxSeasons, setMaxSeasons] = useState(0);
 	const [currentSeason, setCurrentSeason] = useState(1);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -27,6 +29,7 @@ export const EpisodePage = (props) => {
 				maximumSeasons = Math.max(episode.season);
 			});
 			setMaxSeasons(maximumSeasons);
+			setIsLoading(false);
 		}
 		fetchData();
 	}, []);
@@ -35,16 +38,20 @@ export const EpisodePage = (props) => {
 		setCurrentSeason(Number(e.target.value));
 	};
 
-	// Some API image results return null that break application
-	// Need to check for null and replace with placeholder
-	const imageCheck = !listing.image
+	let imageCheck = !listing.image
 		? "https://static.thenounproject.com/png/75231-200.png"
 		: listing.image.original;
 
 	return (
 		<StyledEpisodes>
 			<StyledInfo>
-				<img src={imageCheck} alt="movie" />
+				{isLoading ? (
+					<div className="loader">
+						<ClipLoader />
+					</div>
+				) : (
+					<img src={imageCheck} alt="movie" />
+				)}
 				<h2>{listing.name}</h2>
 				<div
 					dangerouslySetInnerHTML={{ __html: listing.summary }}
@@ -105,6 +112,11 @@ const StyledEpisodes = styled.div`
 
 const StyledInfo = styled.div`
 	width: 100%;
+
+	.loader {
+		display: flex;
+		justify-content: center;
+	}
 
 	h2 {
 		color: #003366;
