@@ -66,6 +66,7 @@ const StyledEpisodeInfo = styled.div`
 const StyledLink = styled.a`
 	text-decoration: none;
 	color: #003366;
+
 	&:visited {
 		color: #003366;
 	}

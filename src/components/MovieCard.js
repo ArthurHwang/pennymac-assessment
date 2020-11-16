@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MovieCard = ({ name, image, summary, url, id }) => {
 	// Some API image results return null that break application
@@ -7,12 +7,12 @@ export const MovieCard = ({ name, image, summary, url, id }) => {
 
 	let imageCheck =
 		image === null
-			? 'https://static.thenounproject.com/png/75231-200.png'
+			? "https://static.thenounproject.com/png/75231-200.png"
 			: image.original;
 
 	return (
 		<StyledCard>
-			<a href={url} target='_blank' rel='noreferrer'>
+			<a href={url} target="_blank" rel="noreferrer">
 				<img src={imageCheck} title={name} alt={name} />
 			</a>
 			<StyledDescription>
@@ -61,6 +61,10 @@ const StyledDescription = styled.div`
 
 	p {
 		color: grey;
+	}
+
+	@media (max-width: 768px) {
+		padding: 0 20px 30px;
 	}
 `;
 

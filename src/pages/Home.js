@@ -20,10 +20,13 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledContainer = styled.div`
-	background-color: grey;
 	height: auto;
 	padding: 20px 40px;
 	background-color: #ccc;
+
+	@media (max-width: 768px) {
+		padding: 20px 0;
+	}
 `;
 
 const StyledListing = styled.div`

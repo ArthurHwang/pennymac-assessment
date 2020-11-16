@@ -93,9 +93,16 @@ const StyledEpisodes = styled.div`
 	margin: 0 auto;
 	justify-content: center;
 	padding-bottom: 40px;
+	grid-gap: 20px;
 
 	@media (max-width: 768px) {
 		display: block;
+		/* width: 100%; */
+		/* padding: 0 20px; */
+		margin: 0;
+		/* width: 100vw; */
+		width: 90%;
+		padding: 0 20px;
 	}
 `;
 
@@ -120,8 +127,17 @@ const StyledInfo = styled.div`
 const StyledSeasons = styled.div`
 	width: 100%;
 
+	h2 {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
 	ul {
 		padding-left: 20px;
+
+		@media (max-width: 768px) {
+			padding-left: 0;
+		}
 	}
 
 	select {
@@ -135,6 +151,7 @@ const StyledSeasons = styled.div`
 
 		@media (max-width: 768px) {
 			margin-top: 20px;
+			margin-left: 0;
 		}
 	}
 `;

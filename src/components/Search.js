@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { useLocation, useHistory } from 'react-router-dom';
+import styled from "styled-components";
+import { useLocation, useHistory } from "react-router-dom";
 export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 	let location = useLocation();
 	let history = useHistory();
 
-	const handleSubmit = async e => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const movies = await fetch(
 			`https://api.tvmaze.com/search/shows?q=${value}`
@@ -19,24 +19,24 @@ export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 		}
 
 		// push route to home if user is on episode page for cleaner rendering if they search multiple times
-		if (location.pathname !== '/') {
-			history.push('/');
+		if (location.pathname !== "/") {
+			history.push("/");
 		}
 	};
 
-	const handleChange = e => {
+	const handleChange = (e) => {
 		setInput(e.target.value);
 	};
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledSearch
-				placeholder='Search for movies'
-				type='text'
+				placeholder="Search for movies"
+				type="text"
 				value={value}
 				onChange={handleChange}
 			/>
-			<StyledButton type='submit'>Search</StyledButton>
+			<StyledButton type="submit">Search</StyledButton>
 		</StyledForm>
 	);
 };
@@ -55,7 +55,7 @@ const StyledForm = styled.form`
 		grid-template-rows: 1fr 1fr;
 		height: auto;
 		width: 100%;
-		margin: 40px auto;
+		margin: 40px auto 20px;
 	}
 `;
 
