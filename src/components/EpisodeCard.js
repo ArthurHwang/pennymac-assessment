@@ -11,7 +11,7 @@ export const EpisodeCard = ({ props, listing }) => {
 						<span>
 							<BsStarFill className="star" />
 							{listing.rating.average === null
-								? null
+								? "No Rating"
 								: listing.rating.average.toString()}
 						</span>{" "}
 						<span className="divider">|</span>

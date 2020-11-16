@@ -97,10 +97,7 @@ const StyledEpisodes = styled.div`
 
 	@media (max-width: 768px) {
 		display: block;
-		/* width: 100%; */
-		/* padding: 0 20px; */
 		margin: 0;
-		/* width: 100vw; */
 		width: 90%;
 		padding: 0 20px;
 	}
