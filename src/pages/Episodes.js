@@ -13,29 +13,39 @@ export const EpisodePage = (props) => {
 	useEffect(() => {
 		async function fetchData() {
 			const id = props.match.params.id;
-			const listing = await fetch(`https://api.tvmaze.com/shows/${id}`);
-			const episodes = await fetch(
-				`https://api.tvmaze.com/shows/${id}/episodes`
-			);
-			const listingBody = await listing.json();
-			const episodeBody = await episodes.json();
-			setListing(listingBody);
-			setEpisodes(episodeBody);
 
-			let maximumSeasons = 0;
+			try {
+				const [listingFetch, episodesFetch] = await Promise.all([
+					fetch(`https://api.tvmaze.com/shows/${id}`),
+					fetch(`https://api.tvmaze.com/shows/${id}/episodes`),
+				]);
 
-			// loop through episode HTTP response listing and find maximum number of seasons
-			episodeBody.forEach((episode) => {
-				maximumSeasons = Math.max(episode.season);
-			});
-			setMaxSeasons(maximumSeasons);
-			setIsLoading(false);
+				const [listingBody, episodeBody] = await Promise.all([
+					listingFetch.json(),
+					episodesFetch.json(),
+				]);
+
+				setListing(listingBody);
+				setEpisodes(episodeBody);
+
+				// loop through episode HTTP response listing and find maximum number of seasons
+				let maximumSeasons = 0;
+
+				episodeBody.forEach((episode) => {
+					maximumSeasons = Math.max(episode.season);
+				});
+
+				setMaxSeasons(maximumSeasons);
+				setIsLoading(false);
+			} catch (err) {
+				alert(err);
+			}
 		}
 		fetchData();
 	}, []);
 
-	const handleChange = (e) => {
-		setCurrentSeason(Number(e.target.value));
+	const handleChange = ({ target: { value } }) => {
+		setCurrentSeason(parseInt(value));
 	};
 
 	let imageCheck = !listing.image
@@ -69,7 +79,7 @@ export const EpisodePage = (props) => {
 			<StyledSeasons>
 				<select onChange={handleChange}>
 					{Array.from({ length: maxSeasons }).map((_el, idx) => (
-						<option value={`${idx + 1}`}>{`Season ${
+						<option key={idx} value={`${idx + 1}`}>{`Season ${
 							idx + 1
 						}`}</option>
 					))}
@@ -81,10 +91,9 @@ export const EpisodePage = (props) => {
 								<EpisodeCard
 									props={episode}
 									listing={listing}
+									key={episode.id}
 								/>
 							);
-						} else {
-							return null;
 						}
 					})}
 				</ul>
