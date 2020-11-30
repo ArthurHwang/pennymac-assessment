@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import { useLocation, useHistory } from "react-router-dom";
+import debounce from "lodash.debounce";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
+import { useState } from "react";
 
+const searchAPI = (url) => fetch(url);
+const debouncedMovies = AwesomeDebouncePromise(searchAPI, 1000);
 export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 	let location = useLocation();
 	let history = useHistory();
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
+
 		const movies = await fetch(
 			`https://api.tvmaze.com/search/shows?q=${value}`
 		);
+
 		const body = await movies.json();
 		if (body.length) {
 			setMovies(body);
@@ -20,13 +30,25 @@ export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 		}
 
 		// push route to home if user is on episode page for cleaner rendering if they search multiple times
+		setIsLoading(false);
+
 		if (location.pathname !== "/") {
 			history.push("/");
 		}
 	};
 
-	const handleChange = (e) => {
+	const handleChange = async (e) => {
 		setInput(e.target.value);
+
+		setIsLoading(true);
+
+		const movies = await debouncedMovies(
+			`https://api.tvmaze.com/search/shows?q=${e.target.value}`
+		);
+
+		const body = await movies.json();
+		setMovies(body);
+		setIsLoading(false);
 	};
 
 	return (
@@ -37,7 +59,9 @@ export const Search = ({ setMovies, setInput, setNoResult, value }) => {
 				value={value}
 				onChange={handleChange}
 			/>
-			<StyledButton type="submit">Search</StyledButton>
+			<StyledButton type="submit">
+				{isLoading ? <span>...</span> : <span>Search</span>}
+			</StyledButton>
 		</StyledForm>
 	);
 };
